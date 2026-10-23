@@ -4,7 +4,6 @@ Projeto **full stack** de autenticação de usuários. Permite criar conta e ent
 
 🔗 **[Ver demonstração online](https://suzaneluzz.github.io/sistema-login-web/)**
 
-> A demonstração online roda no GitHub Pages, que não executa Python. Por isso ela reproduz o cadastro, o login, o hash de senha e o bloqueio em JavaScript, guardando os dados no navegador. O login com Google e GitHub funciona na versão completa com servidor Flask, descrita abaixo.
 
 <p align="center">
   <img src="docs/cadastro.png" alt="Tela de cadastro" width="48%">
