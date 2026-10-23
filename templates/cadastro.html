@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+{% from "_componentes.html" import botoes_sociais, campo, campo_senha %}
+{% block titulo %}Criar conta{% endblock %}
+
+{% block conteudo %}
+<header class="cabecalho">
+  <span class="etiqueta">Novo por aqui?</span>
+  <h1>Crie sua conta</h1>
+  <p>Já tem cadastro? <a href="{{ url_for('login') }}">Entrar</a></p>
+</header>
+
+{{ botoes_sociais("ou cadastre-se com e-mail") }}
+
+<form class="formulario" method="post" enctype="multipart/form-data" novalidate>
+  <input type="hidden" name="_csrf" value="{{ csrf_token() }}">
+
+  <div class="linha">
+    {{ campo("first_name", "Nome", valor=form.get("first_name", ""), auto="given-name", dica="Seu nome") }}
+    {{ campo("last_name", "Sobrenome", valor=form.get("last_name", ""), auto="family-name", dica="Seu sobrenome") }}
+  </div>
+  {{ campo("email", "E-mail", tipo="email", valor=form.get("email", ""), auto="email", dica="voce@email.com") }}
+
+  <div class="linha">
+    {{ campo_senha("password", "Senha", auto="new-password") }}
+    {{ campo_senha("confirm_password", "Confirmar senha", auto="new-password") }}
+  </div>
+
+  <div class="forca" aria-live="polite">
+    <div class="forca-barra"><span id="forca-preenchimento"></span></div>
+    <ul class="regras" id="regras-senha">
+      <li data-regra="tamanho">8+ caracteres</li>
+      <li data-regra="maiuscula">Maiúscula</li>
+      <li data-regra="minuscula">Minúscula</li>
+      <li data-regra="numero">Número</li>
+    </ul>
+    <p class="dica-erro" id="senhas-diferentes" hidden>As senhas não coincidem.</p>
+  </div>
+
+  <fieldset class="bloco-avatar">
+    <legend>Avatar <small>(opcional)</small></legend>
+    <div class="avatares">
+      <label class="avatar-opcao avatar-upload" title="Enviar uma foto">
+        <input type="radio" name="avatar" value="upload" {% if form.get("avatar") == "upload" %}checked{% endif %}>
+        <input type="file" name="avatar_file" id="avatar_file" accept="image/png,image/jpeg,image/webp" hidden>
+        <span class="avatar-forma" id="preview-upload">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
+        </span>
+      </label>
+      {% for avatar in avatares %}
+        <label class="avatar-opcao" title="Avatar {{ loop.index }}">
+          <input type="radio" name="avatar" value="{{ avatar }}" {% if form.get("avatar") == avatar %}checked{% endif %}>
+          <img class="avatar-forma" src="{{ url_for('static', filename=avatar) }}" alt="Avatar {{ loop.index }}">
+        </label>
+      {% endfor %}
+    </div>
+    <p class="nota">Escolha um personagem ou clique em <strong>+</strong> para enviar sua foto.</p>
+  </fieldset>
+
+  <button class="btn-principal" type="submit">
+    Criar conta
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+  </button>
+</form>
+{% endblock %}

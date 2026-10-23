@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% from "_componentes.html" import botoes_sociais, campo, campo_senha %}
+{% block titulo %}Entrar{% endblock %}
+{% block classe_caixa %}caixa-estreita{% endblock %}
+
+{% block conteudo %}
+<header class="cabecalho">
+  <span class="etiqueta">Bem-vindo(a) de volta</span>
+  <h1>Entre na sua conta</h1>
+  <p>Ainda não tem conta? <a href="{{ url_for('cadastro') }}">Criar conta</a></p>
+</header>
+
+{{ botoes_sociais("ou entre com e-mail") }}
+
+<form class="formulario" method="post" novalidate>
+  <input type="hidden" name="_csrf" value="{{ csrf_token() }}">
+  {{ campo("email", "E-mail", tipo="email", valor=form.get("email", ""), auto="email", dica="voce@email.com") }}
+  {{ campo_senha("password", "Senha") }}
+  <button class="btn-principal" type="submit">
+    Entrar
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+  </button>
+</form>
+{% endblock %}

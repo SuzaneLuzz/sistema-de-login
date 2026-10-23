@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block titulo %}Meu perfil{% endblock %}
+{% block classe_caixa %}caixa-estreita{% endblock %}
+
+{% block conteudo %}
+<section class="perfil">
+  <div class="perfil-capa"></div>
+  <div class="perfil-topo">
+    {% if usuario.avatar_url %}
+      <img class="perfil-foto" src="{{ usuario.avatar_url }}" alt="Foto de {{ usuario.first_name }}" referrerpolicy="no-referrer">
+    {% else %}
+      <div class="perfil-foto perfil-iniciais">{{ usuario.initials }}</div>
+    {% endif %}
+    <span class="status"><i></i> Sessão ativa</span>
+  </div>
+
+  <h1>Olá, {{ usuario.first_name }}!</h1>
+  <p class="perfil-email">{{ usuario.email }}</p>
+
+  <dl class="dados">
+    <div><dt>Nome completo</dt><dd>{{ usuario.full_name }}</dd></div>
+    <div>
+      <dt>Formas de login</dt>
+      <dd>
+        {% for metodo in usuario.login_methods %}
+          <span class="selo">{{ metodo }}</span>
+        {% endfor %}
+      </dd>
+    </div>
+    <div><dt>Membro desde</dt><dd>{{ usuario.created_at.strftime("%d/%m/%Y") }}</dd></div>
+    <div><dt>Último acesso</dt><dd>{{ usuario.last_login.strftime("%d/%m/%Y às %H:%M") if usuario.last_login else "-" }}</dd></div>
+  </dl>
+
+  <form action="{{ url_for('logout') }}" method="post">
+    <input type="hidden" name="_csrf" value="{{ csrf_token() }}">
+    <button class="btn-secundario" type="submit">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 4h4v16h-4M10 8l-4 4 4 4M6 12h10"/></svg>
+      Sair da conta
+    </button>
+  </form>
+</section>
+{% endblock %}

@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sistema de Login · Demonstração</title>
+  <meta name="description" content="Sistema de autenticação de usuários — versão de demonstração online.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="static/css/style.css">
+  <style>
+    [hidden] { display: none !important; }
+    .faixa-demo {
+      display: flex; gap: 10px; align-items: flex-start;
+      font-size: 0.8rem; line-height: 1.45; color: #5b4b00;
+      background: #fff6d6; border: 1px solid #f3e2a2;
+      padding: 10px 12px; border-radius: 10px; margin-bottom: 22px;
+    }
+    .faixa-demo svg { width: 18px; height: 18px; flex: none; fill: none; stroke: #b08900; stroke-width: 2; stroke-linecap: round; margin-top: 1px; }
+    button.btn-social { font: inherit; font-weight: 600; cursor: pointer; }
+  </style>
+</head>
+<body>
+  <div class="layout">
+    <aside class="lateral">
+      <a class="marca" href="#login">
+        <svg class="marca-icone" viewBox="0 0 32 32" aria-hidden="true">
+          <defs><linearGradient id="grad-lateral" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#8b7bff"/><stop offset="1" stop-color="#3fd0e8"/></linearGradient></defs>
+          <rect width="32" height="32" rx="9" fill="url(#grad-lateral)"/>
+          <path d="M11.5 14v-3a4.5 4.5 0 0 1 9 0v3" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round"/>
+          <rect x="8.5" y="14" width="15" height="11" rx="3" fill="#fff"/>
+          <circle cx="16" cy="19" r="1.8" fill="#7a86f5"/>
+        </svg>
+        <span>Sistema de <strong>Login</strong></span>
+      </a>
+
+      <div class="lateral-texto">
+        <h2>Seu acesso,<br><span>sem complicação.</span></h2>
+        <p>Entre com e-mail e senha ou use sua conta do Google ou do GitHub.</p>
+        <ul class="recursos">
+          <li>
+            <span class="recurso-icone"><svg viewBox="0 0 24 24"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg></span>
+            <div><strong>Senhas protegidas</strong><small>Guardadas com hash, nunca em texto puro</small></div>
+          </li>
+          <li>
+            <span class="recurso-icone"><svg viewBox="0 0 24 24"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1"/><path d="M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/></svg></span>
+            <div><strong>Login social</strong><small>Google e GitHub via OAuth 2.0</small></div>
+          </li>
+          <li>
+            <span class="recurso-icone"><svg viewBox="0 0 24 24"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/><path d="M9 12l2 2 4-4"/></svg></span>
+            <div><strong>Proteção contra invasão</strong><small>Bloqueio após tentativas erradas</small></div>
+          </li>
+        </ul>
+      </div>
+
+      <footer class="rodape">
+        <span>© Suzane Luz</span>
+        <nav>
+          <a href="https://znii.artstation.com" target="_blank" rel="noopener">Portfólio</a>
+          <a href="https://linkedin.com/in/suzaneazevedoluz" target="_blank" rel="noopener">LinkedIn</a>
+          <a href="https://github.com/SuzaneLuzz" target="_blank" rel="noopener">GitHub</a>
+        </nav>
+      </footer>
+    </aside>
+
+    <main class="conteudo">
+      <div class="topo-mobile">
+        <a class="marca" href="#login">
+          <svg class="marca-icone" viewBox="0 0 32 32" aria-hidden="true">
+            <defs><linearGradient id="grad-mobile" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#8b7bff"/><stop offset="1" stop-color="#3fd0e8"/></linearGradient></defs>
+            <rect width="32" height="32" rx="9" fill="url(#grad-mobile)"/>
+            <path d="M11.5 14v-3a4.5 4.5 0 0 1 9 0v3" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round"/>
+            <rect x="8.5" y="14" width="15" height="11" rx="3" fill="#fff"/>
+            <circle cx="16" cy="19" r="1.8" fill="#7a86f5"/>
+          </svg>
+          <span>Sistema de <strong>Login</strong></span>
+        </a>
+      </div>
+
+      <div class="caixa" id="caixa">
+        <div class="faixa-demo" id="faixa-demo">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 8v5M12 16h.01"/></svg>
+          <span><strong>Versão de demonstração.</strong> As contas ficam salvas só neste navegador.
+          A versão completa, com servidor Python e login real pelo Google e GitHub, está no
+          <a href="https://github.com/SuzaneLuzz/sistema-login-web" target="_blank" rel="noopener">repositório</a>.</span>
+        </div>
+
+        <div class="avisos" id="avisos" hidden></div>
+
+        <!-- ===================== CADASTRO ===================== -->
+        <section data-tela="cadastro" hidden>
+          <header class="cabecalho">
+            <span class="etiqueta">Novo por aqui?</span>
+            <h1>Crie sua conta</h1>
+            <p>Já tem cadastro? <a href="#login">Entrar</a></p>
+          </header>
+
+          <div class="sociais">
+            <button type="button" class="btn-social" data-provedor="Google">
+              <svg viewBox="0 0 48 48" width="20" height="20" aria-hidden="true"><path fill="#FFC107" d="M43.6 20.5H42V20H24v8h11.3C33.7 32.7 29.2 36 24 36c-6.6 0-12-5.4-12-12s5.4-12 12-12c3.1 0 5.8 1.2 7.9 3.1l5.7-5.7C34 6.1 29.3 4 24 4 12.9 4 4 12.9 4 24s8.9 20 20 20 20-8.9 20-20c0-1.3-.1-2.4-.4-3.5z"/><path fill="#FF3D00" d="M6.3 14.7l6.6 4.8C14.7 15.1 19 12 24 12c3.1 0 5.8 1.2 7.9 3.1l5.7-5.7C34 6.1 29.3 4 24 4 16.3 4 9.7 8.3 6.3 14.7z"/><path fill="#4CAF50" d="M24 44c5.2 0 9.9-2 13.4-5.2l-6.2-5.2C29.2 35.1 26.7 36 24 36c-5.2 0-9.6-3.3-11.3-8l-6.5 5C9.5 39.6 16.2 44 24 44z"/><path fill="#1976D2" d="M43.6 20.5H42V20H24v8h11.3c-.8 2.2-2.2 4.2-4.1 5.6l6.2 5.2C37 39.2 44 34 44 24c0-1.3-.1-2.4-.4-3.5z"/></svg>
+              Google
+            </button>
+            <button type="button" class="btn-social" data-provedor="GitHub">
+              <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path fill="currentColor" d="M12 .5C5.7.5.5 5.7.5 12c0 5.1 3.3 9.4 7.9 10.9.6.1.8-.3.8-.6v-2c-3.2.7-3.9-1.5-3.9-1.5-.5-1.3-1.3-1.7-1.3-1.7-1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.7-1.6-2.6-.3-5.3-1.3-5.3-5.7 0-1.3.5-2.3 1.2-3.1-.1-.3-.5-1.5.1-3.1 0 0 1-.3 3.2 1.2a11 11 0 0 1 5.8 0c2.2-1.5 3.2-1.2 3.2-1.2.6 1.6.2 2.8.1 3.1.7.8 1.2 1.9 1.2 3.1 0 4.4-2.7 5.4-5.3 5.7.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6 4.6-1.5 7.9-5.8 7.9-10.9C23.5 5.7 18.3.5 12 .5z"/></svg>
+              GitHub
+            </button>
+          </div>
+          <div class="divisor"><span>ou cadastre-se com e-mail</span></div>
+
+          <form class="formulario" id="form-cadastro" novalidate>
+            <div class="linha">
+              <div class="campo"><label for="first_name">Nome</label><input id="first_name" type="text" placeholder="Seu nome" autocomplete="given-name"></div>
+              <div class="campo"><label for="last_name">Sobrenome</label><input id="last_name" type="text" placeholder="Seu sobrenome" autocomplete="family-name"></div>
+            </div>
+            <div class="campo"><label for="email">E-mail</label><input id="email" type="email" placeholder="voce@email.com" autocomplete="email"></div>
+
+            <div class="linha">
+              <div class="campo">
+                <label for="password">Senha</label>
+                <div class="campo-senha">
+                  <input id="password" type="password" placeholder="••••••••" autocomplete="new-password">
+                  <button type="button" class="olho" data-alvo="password" aria-label="Mostrar senha">
+                    <svg class="olho-fechado" viewBox="0 0 24 24"><path d="M3 3l18 18M10.6 10.6a2 2 0 0 0 2.8 2.8M9.9 5.1A10 10 0 0 1 12 5c6 0 10 7 10 7a17 17 0 0 1-3.2 3.9M6.6 6.6C3.9 8.4 2 12 2 12s4 7 10 7a9.6 9.6 0 0 0 5.4-1.6"/></svg>
+                    <svg class="olho-aberto" viewBox="0 0 24 24"><path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg>
+                  </button>
+                </div>
+              </div>
+              <div class="campo">
+                <label for="confirm_password">Confirmar senha</label>
+                <div class="campo-senha">
+                  <input id="confirm_password" type="password" placeholder="••••••••" autocomplete="new-password">
+                  <button type="button" class="olho" data-alvo="confirm_password" aria-label="Mostrar senha">
+                    <svg class="olho-fechado" viewBox="0 0 24 24"><path d="M3 3l18 18M10.6 10.6a2 2 0 0 0 2.8 2.8M9.9 5.1A10 10 0 0 1 12 5c6 0 10 7 10 7a17 17 0 0 1-3.2 3.9M6.6 6.6C3.9 8.4 2 12 2 12s4 7 10 7a9.6 9.6 0 0 0 5.4-1.6"/></svg>
+                    <svg class="olho-aberto" viewBox="0 0 24 24"><path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div class="forca" aria-live="polite">
+              <div class="forca-barra"><span id="forca-preenchimento"></span></div>
+              <ul class="regras" id="regras-senha">
+                <li data-regra="tamanho">8+ caracteres</li>
+                <li data-regra="maiuscula">Maiúscula</li>
+                <li data-regra="minuscula">Minúscula</li>
+                <li data-regra="numero">Número</li>
+              </ul>
+              <p class="dica-erro" id="senhas-diferentes" hidden>As senhas não coincidem.</p>
+            </div>
+
+            <fieldset class="bloco-avatar">
+              <legend>Avatar <small>(opcional)</small></legend>
+              <div class="avatares" id="lista-avatares">
+                <label class="avatar-opcao avatar-upload" title="Enviar uma foto">
+                  <input type="radio" name="avatar" value="upload">
+                  <input type="file" id="avatar_file" accept="image/png,image/jpeg,image/webp" hidden>
+                  <span class="avatar-forma" id="preview-upload">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
+                  </span>
+                </label>
+              </div>
+              <p class="nota">Escolha um personagem ou clique em <strong>+</strong> para enviar sua foto.</p>
+            </fieldset>
+
+            <button class="btn-principal" type="submit">
+              Criar conta
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </button>
+          </form>
+        </section>
+
+        <!-- ===================== LOGIN ===================== -->
+        <section data-tela="login" hidden>
+          <header class="cabecalho">
+            <span class="etiqueta">Bem-vindo(a) de volta</span>
+            <h1>Entre na sua conta</h1>
+            <p>Ainda não tem conta? <a href="#cadastro">Criar conta</a></p>
+          </header>
+
+          <div class="sociais">
+            <button type="button" class="btn-social" data-provedor="Google">
+              <svg viewBox="0 0 48 48" width="20" height="20" aria-hidden="true"><path fill="#FFC107" d="M43.6 20.5H42V20H24v8h11.3C33.7 32.7 29.2 36 24 36c-6.6 0-12-5.4-12-12s5.4-12 12-12c3.1 0 5.8 1.2 7.9 3.1l5.7-5.7C34 6.1 29.3 4 24 4 12.9 4 4 12.9 4 24s8.9 20 20 20 20-8.9 20-20c0-1.3-.1-2.4-.4-3.5z"/><path fill="#FF3D00" d="M6.3 14.7l6.6 4.8C14.7 15.1 19 12 24 12c3.1 0 5.8 1.2 7.9 3.1l5.7-5.7C34 6.1 29.3 4 24 4 16.3 4 9.7 8.3 6.3 14.7z"/><path fill="#4CAF50" d="M24 44c5.2 0 9.9-2 13.4-5.2l-6.2-5.2C29.2 35.1 26.7 36 24 36c-5.2 0-9.6-3.3-11.3-8l-6.5 5C9.5 39.6 16.2 44 24 44z"/><path fill="#1976D2" d="M43.6 20.5H42V20H24v8h11.3c-.8 2.2-2.2 4.2-4.1 5.6l6.2 5.2C37 39.2 44 34 44 24c0-1.3-.1-2.4-.4-3.5z"/></svg>
+              Google
+            </button>
+            <button type="button" class="btn-social" data-provedor="GitHub">
+              <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path fill="currentColor" d="M12 .5C5.7.5.5 5.7.5 12c0 5.1 3.3 9.4 7.9 10.9.6.1.8-.3.8-.6v-2c-3.2.7-3.9-1.5-3.9-1.5-.5-1.3-1.3-1.7-1.3-1.7-1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.7-1.6-2.6-.3-5.3-1.3-5.3-5.7 0-1.3.5-2.3 1.2-3.1-.1-.3-.5-1.5.1-3.1 0 0 1-.3 3.2 1.2a11 11 0 0 1 5.8 0c2.2-1.5 3.2-1.2 3.2-1.2.6 1.6.2 2.8.1 3.1.7.8 1.2 1.9 1.2 3.1 0 4.4-2.7 5.4-5.3 5.7.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6 4.6-1.5 7.9-5.8 7.9-10.9C23.5 5.7 18.3.5 12 .5z"/></svg>
+              GitHub
+            </button>
+          </div>
+          <div class="divisor"><span>ou entre com e-mail</span></div>
+
+          <form class="formulario" id="form-login" novalidate>
+            <div class="campo"><label for="login_email">E-mail</label><input id="login_email" type="email" placeholder="voce@email.com" autocomplete="email"></div>
+            <div class="campo">
+              <label for="login_password">Senha</label>
+              <div class="campo-senha">
+                <input id="login_password" type="password" placeholder="••••••••" autocomplete="current-password">
+                <button type="button" class="olho" data-alvo="login_password" aria-label="Mostrar senha">
+                  <svg class="olho-fechado" viewBox="0 0 24 24"><path d="M3 3l18 18M10.6 10.6a2 2 0 0 0 2.8 2.8M9.9 5.1A10 10 0 0 1 12 5c6 0 10 7 10 7a17 17 0 0 1-3.2 3.9M6.6 6.6C3.9 8.4 2 12 2 12s4 7 10 7a9.6 9.6 0 0 0 5.4-1.6"/></svg>
+                  <svg class="olho-aberto" viewBox="0 0 24 24"><path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg>
+                </button>
+              </div>
+            </div>
+            <button class="btn-principal" type="submit">
+              Entrar
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </button>
+          </form>
+        </section>
+
+        <!-- ===================== PAINEL ===================== -->
+        <section data-tela="painel" hidden>
+          <div class="perfil">
+            <div class="perfil-capa"></div>
+            <div class="perfil-topo">
+              <img class="perfil-foto" id="p-foto" alt="Foto de perfil" hidden>
+              <div class="perfil-foto perfil-iniciais" id="p-iniciais" hidden></div>
+              <span class="status"><i></i> Sessão ativa</span>
+            </div>
+            <h1 id="p-ola"></h1>
+            <p class="perfil-email" id="p-email"></p>
+            <dl class="dados">
+              <div><dt>Nome completo</dt><dd id="p-nome"></dd></div>
+              <div><dt>Formas de login</dt><dd><span class="selo">E-mail e senha</span></dd></div>
+              <div><dt>Membro desde</dt><dd id="p-criado"></dd></div>
+              <div><dt>Último acesso</dt><dd id="p-acesso"></dd></div>
+            </dl>
+            <button class="btn-secundario" type="button" id="btn-sair">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 4h4v16h-4M10 8l-4 4 4 4M6 12h10"/></svg>
+              Sair da conta
+            </button>
+          </div>
+        </section>
+      </div>
+
+      <footer class="rodape-mobile">
+        <a href="https://znii.artstation.com" target="_blank" rel="noopener">Portfólio</a>
+        <a href="https://linkedin.com/in/suzaneazevedoluz" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="https://github.com/SuzaneLuzz" target="_blank" rel="noopener">GitHub</a>
+      </footer>
+    </main>
+  </div>
+
+  <script src="static/js/main.js"></script>
+  <script src="static/js/demo.js"></script>
+</body>
+</html>

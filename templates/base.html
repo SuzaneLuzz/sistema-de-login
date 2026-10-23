@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block titulo %}Início{% endblock %} · Sistema de Login</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+  {% macro logo(gid) %}
+    <a class="marca" href="{{ url_for('inicio') }}">
+      <svg class="marca-icone" viewBox="0 0 32 32" aria-hidden="true">
+        <rect width="32" height="32" rx="9" fill="url(#{{ gid }})"/>
+        <defs><linearGradient id="{{ gid }}" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#8b7bff"/><stop offset="1" stop-color="#3fd0e8"/></linearGradient></defs>
+        <path d="M11.5 14v-3a4.5 4.5 0 0 1 9 0v3" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round"/>
+        <rect x="8.5" y="14" width="15" height="11" rx="3" fill="#fff"/>
+        <circle cx="16" cy="19" r="1.8" fill="#7a86f5"/>
+      </svg>
+      <span>Sistema de <strong>Login</strong></span>
+    </a>
+  {% endmacro %}
+
+  <div class="layout">
+    <aside class="lateral">
+      {{ logo("grad-lateral") }}
+
+      <div class="lateral-texto">
+        <h2>Seu acesso,<br><span>sem complicação.</span></h2>
+        <p>Entre com e-mail e senha ou use sua conta do Google ou do GitHub.</p>
+
+        <ul class="recursos">
+          <li>
+            <span class="recurso-icone"><svg viewBox="0 0 24 24"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg></span>
+            <div><strong>Senhas protegidas</strong><small>Guardadas com hash, nunca em texto puro</small></div>
+          </li>
+          <li>
+            <span class="recurso-icone"><svg viewBox="0 0 24 24"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1"/><path d="M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/></svg></span>
+            <div><strong>Login social</strong><small>Google e GitHub via OAuth 2.0</small></div>
+          </li>
+          <li>
+            <span class="recurso-icone"><svg viewBox="0 0 24 24"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/><path d="M9 12l2 2 4-4"/></svg></span>
+            <div><strong>Proteção contra invasão</strong><small>Bloqueio após tentativas erradas</small></div>
+          </li>
+        </ul>
+      </div>
+
+      <footer class="rodape">
+        <span>© Suzane Luz</span>
+        <nav>
+          <a href="https://znii.artstation.com" target="_blank" rel="noopener">Portfólio</a>
+          <a href="https://linkedin.com/in/suzaneazevedoluz" target="_blank" rel="noopener">LinkedIn</a>
+          <a href="https://github.com/SuzaneLuzz" target="_blank" rel="noopener">GitHub</a>
+        </nav>
+      </footer>
+    </aside>
+
+    <main class="conteudo">
+      <div class="topo-mobile">{{ logo("grad-mobile") }}</div>
+
+      <div class="caixa {% block classe_caixa %}{% endblock %}">
+        {% with mensagens = get_flashed_messages(with_categories=true) %}
+          {% if mensagens %}
+            <div class="avisos">
+              {% for categoria, mensagem in mensagens %}
+                <div class="aviso aviso-{{ categoria }}" role="alert">{{ mensagem }}</div>
+              {% endfor %}
+            </div>
+          {% endif %}
+        {% endwith %}
+
+        {% block conteudo %}{% endblock %}
+      </div>
+
+      <footer class="rodape-mobile">
+        <a href="https://znii.artstation.com" target="_blank" rel="noopener">Portfólio</a>
+        <a href="https://linkedin.com/in/suzaneazevedoluz" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="https://github.com/SuzaneLuzz" target="_blank" rel="noopener">GitHub</a>
+      </footer>
+    </main>
+  </div>
+
+  <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>
