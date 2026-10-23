@@ -2,7 +2,7 @@
 
 Projeto **full stack** de autenticação de usuários. Permite criar conta e entrar com **e-mail e senha**, ou com contas do **Google** e do **GitHub** (OAuth 2.0).
 
-🔗 **[Ver demonstração online](https://suzaneluzz.github.io/sistema-login-web/)**
+🔗 **[Ver demonstração online](https://suzaneluzz.github.io/sistema-de-login/)**
 
 
 <p align="center">
